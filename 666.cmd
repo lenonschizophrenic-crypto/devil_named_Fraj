@@ -2159,28 +2159,6 @@ exit /b
 
 ::========================================================================================================================================
 
-:dk_done
-
-echo:
-if %_unattended%==1 timeout /t 2 & exit /b
-
-if defined fixes (
-call :dk_color %White% "Follow ALL the ABOVE blue lines.   "
-call :dk_color2 %Blue% "Press [1] to Open Support Webpage " %Gray% " Press [0] to Ignore"
-choice /C:10 /N
-if !errorlevel!==2 exit /b
-if !errorlevel!==1 (start %selfgit% & start %github% & for %%# in (%fixes%) do (start %%#))
-)
-
-if defined terminal (
-call :dk_color %_Yellow% "Press [0] key to %_exitmsg%..."
-choice /c 0 /n
-) else (
-call :dk_color %_Yellow% "Press any key to %_exitmsg%..."
-pause %nul1%
-)
-
-exit /b
 
 ::========================================================================================================================================
 
@@ -2529,18 +2507,16 @@ if "%o16c2r%%o15c2r%%o16msi%%o15msi%%o14msi%"=="" (
 set error=1
 echo:
 if not "%o14c2r%%o16uwp%"=="" (
-call :dk_color %Red% "Checking Supported Office Install       [Not Found]"
+call :dk_color %Red% "@Fraj : Checking Supported Office Install       [Not Found]"
 ) else (
-call :dk_color %Red% "Checking Installed Office               [Not Found]"
+call :dk_color %Red% "@Fraj : Checking Installed Office               [Not Found]"
 )
 
 if defined ohub (
 echo:
 echo You only have the Office Dashboard app installed; you need to install the full version of Office.
 )
-call :dk_color %Blue% "Download and install Office from the URL below, then try again."
-set fixes=%fixes% %mas%genuine-installation-media
-call :dk_color %_Yellow% "%mas%genuine-installation-media"
+call :dk_color %Blue% "@Fraj : Download and install Office from option 3 *office download* and try again"
 goto dk_done
 )
 
@@ -5065,10 +5041,7 @@ if defined ohub (
 echo:
 echo You only have the Office Dashboard app installed; you need to install the full version of Office.
 )
-call :dk_color %Blue% "Download and install Office from the URL below, then try again."
-if %_actwin%==0 set fixes=%fixes% %mas%genuine-installation-media
-call :dk_color %_Yellow% "%mas%genuine-installation-media"
-goto :ts_act
+call :dk_color %Blue% "@Fraj : Download and install Office from option 3 *office download* and try again"
 )
 
 set multioffice=
@@ -18530,28 +18503,6 @@ call :dk_color2 %Blue% "Check this webpage for help - " %_Yellow% " %mas%trouble
 )
 
 ::========================================================================================================================================
-
-:oe_goback
-
-call :oe_tempcleanup
-
-echo:
-if defined fixes (
-call :dk_color %White% "Follow ALL the ABOVE blue lines.   "
-call :dk_color2 %Blue% "Press [1] to Open Support Webpage " %Gray% " Press [0] to Ignore"
-choice /C:10 /N
-if !errorlevel!==2 goto :oemenu
-if !errorlevel!==1 (start %selfgit% & start %github% & for %%# in (%fixes%) do (start %%#))
-)
-
-if defined terminal (
-call :dk_color %_Yellow% "Press [0] key to go back..."
-choice /c 0 /n
-) else (
-call :dk_color %_Yellow% "Press [space] to go back..."
-pause %nul1%
-)
-goto :oemenu
 
 ::========================================================================================================================================
 
